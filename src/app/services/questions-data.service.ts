@@ -21,7 +21,7 @@ export class QuestionsDataService {
 
   getQuestionData(formData: FormData) {
     return this.http.post('https://ncia.wwnorton.com/services/activity_file.php', formData).pipe(
-      map( result => (<any>result).questions)
+      map( result => (<any>result))
     );
   }
 }

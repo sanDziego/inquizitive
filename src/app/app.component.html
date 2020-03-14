@@ -3,12 +3,13 @@
       <img
           src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/8137d222613001.57e56781e68ea.jpg"
           alt="Logo">
-      <div>
-        <form [formGroup]="form" *ngIf="!submitted">
+      <div [@slideIn] class="title" *ngIf="searchComplete">{{title}}</div>
+      <div class="search-section">
+        <form [formGroup]="form" *ngIf="!submitted" [@slideIn]>
           <input id="search-input" type="text" formControlName="short_id" placeholder="Chapter ID">
           <button class="btn" type="submit" (click)="getCollectionId()">Search</button>
         </form>
-        <button class="btn" *ngIf="submitted" (click)="backToSearch()">Back to Search</button>
+        <button [@slideIn] class="btn" *ngIf="searchComplete" (click)="backToSearch()">Back</button>
       </div>
   </header>
   <div class="content">

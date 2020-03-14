@@ -16,8 +16,16 @@ header {
       display: flex;
     }
 
-    >div {
-      padding: 30px 30px 0;
+    .title {
+      display: flex;
+      align-items: center;
+      font-size: 20px;
+      font-weight: 700;
+      padding-left: 20px;
+    }
+
+    .search-section {
+      padding: 30px 20px 0;
     }
 }
 
@@ -27,7 +35,6 @@ img {
 
 @media(max-width: 719px) {
   header {
-    justify-content: center;
 
     >img {
       display: none;

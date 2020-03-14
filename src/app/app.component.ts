@@ -25,6 +25,7 @@ export class AppComponent implements OnInit {
   submitted = false;
   searchComplete: boolean;
   errorOccured = false;
+  title = '';
 
   constructor(private fb: FormBuilder, private questionsDataService: QuestionsDataService) { }
 
@@ -58,7 +59,10 @@ export class AppComponent implements OnInit {
     formData.append('dynamic_load','false');
 
     this.questionsDataService.getQuestionData(formData).pipe(
-      tap(questions => this.parseQuestionTexts(questions)),
+      tap(result => {
+        this.parseQuestionTexts(result.questions);
+        this.title = result.activity.title;
+      }),
       finalize(() => this.searchComplete = true)
     ).subscribe();
   }
