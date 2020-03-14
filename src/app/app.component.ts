@@ -72,7 +72,7 @@ export class AppComponent implements OnInit {
       let questionText: string =  question.question_text;
 
       if (questionText.includes('<')) {
-        question.question_text = questionText.substring(0, questionText.indexOf('<'));
+        question.question_text = this.parseText(questionText);
       }
     })
     this.getCorrectAnswersBasedOnTypes(questions);
