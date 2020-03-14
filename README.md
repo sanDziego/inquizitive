@@ -1,1 +1,1 @@
-# inquizitive
+# Inquizitive Q&A
