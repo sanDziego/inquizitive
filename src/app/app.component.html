@@ -23,11 +23,11 @@
           <span class="answer">
             Answer:
             <ng-container *ngIf="!question.correct_answer.filter; else answerArray">
-             <b>{{question.correct_answer}}</b>
+             <b>{{question.correct_answer}};</b>
             </ng-container>
             <ng-template #answerArray>
-              <ng-container *ngFor="let answer of question.correct_answer">
-              <b>{{answer ? answer + ' || ' : ''}}</b>
+              <ng-container *ngFor="let answer of question.correct_answer; let i = index">
+              <b>{{answer ? answer + '; ' : ''}}</b>
               </ng-container>
             </ng-template>
           </span>

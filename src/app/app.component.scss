@@ -25,6 +25,15 @@ img {
     height: 100%;
 }
 
+@media(max-width: 719px) {
+  header {
+    justify-content: center;
+
+    >img {
+      display: none;
+    }
+  }
+}
 .content {
     position: absolute;
     display: flex;
