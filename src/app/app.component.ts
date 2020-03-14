@@ -71,8 +71,8 @@ export class AppComponent implements OnInit {
     questions.forEach( question => {
       let questionText: string =  question.question_text;
 
-      if (questionText.includes('<')) {
-        question.question_text = this.parseText(questionText);
+      if (questionText.includes('<') && questionText.includes('>')) {
+        question.question_text = this.stripHtml(questionText);
       }
     })
     this.getCorrectAnswersBasedOnTypes(questions);
