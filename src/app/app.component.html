@@ -21,19 +21,33 @@
       <ng-container *ngFor="let question of questions; let i = index">
         <div [@slideIn] class="qa">
           <span class="question">Q{{i+1}}: {{question.question_text}}</span>
-          <span class="answer">
-            Correct Answer(s):
-            <ng-container *ngIf="!question.correct_answer.filter; else answerArray">
-             <b>{{question.correct_answer}};</b>
-            </ng-container>
-            <ng-template #answerArray>
-              <ng-container *ngFor="let answer of question.correct_answer; let i = index">
-                <ng-container *ngIf="answer">
-                  <b>{{answer}};</b>&nbsp;
-                </ng-container>
-              </ng-container>
-            </ng-template>
-          </span>
+          <div class="answer">
+            <span>Correct Answer(s):</span>
+            <div class="answer-text">
+              <ng-container *ngIf="!question.correct_answer.filter; else answerArray">
+                <br>
+                <span><b>{{question.correct_answer}}</b></span>
+               </ng-container>
+               <ng-template #answerArray>
+                  <ng-container *ngFor="let answer of question.correct_answer; let i = index">
+                    <ng-container *ngIf="answer">
+                      <ng-container *ngIf="answer.filter; else justAnswer">
+                        <ng-container *ngFor="let innerAnswer of answer;">
+                          <br>
+                          {{innerAnswer}}
+                          <br>
+                        </ng-container>
+                      </ng-container>
+                      <ng-template #justAnswer>
+                        <br>
+                        <span><b>{{answer}}</b></span>
+                        <br>
+                      </ng-template>
+                    </ng-container>
+                 </ng-container>
+               </ng-template>
+              </div>
+          </div>
         </div>
       </ng-container>
     </ng-container>

@@ -127,13 +127,13 @@ export class AppComponent implements OnInit {
             if (typeof question.correct_answer[i] === 'object') {
               for (let j = 0; j < question.correct_answer[i].length; j++) {
                 question.correct_answer[i][j] =
-                  this.parseText(question.labels[i]) + ' - ' + this.parseText(question.targets[parseInt(question.correct_answer[i][j])]) + ' ';
+                  this.parseText(question.labels[i]) + ' >>>> ' + this.parseText(question.targets[parseInt(question.correct_answer[i][j])]) + ' ';
               }
             } else if (parseInt(question.correct_answer[i]) || parseInt(question.correct_answer[i]) === 0) {
               question.correct_answer[i] =
-                this.parseText(question.labels[i]) + ' - ' + this.parseText(question.targets[parseInt(question.correct_answer[i])]) + ' ';
+                this.parseText(question.labels[i]) + ' >>>> ' + this.parseText(question.targets[parseInt(question.correct_answer[i])]) + ' ';
             } else {
-              question.correct_answer[i] = this.parseText(question.labels[i]) + ' - NONE ';
+              question.correct_answer[i] = this.parseText(question.labels[i]) + ' >>>> NONE ';
             }
           }
           break;
@@ -165,10 +165,10 @@ export class AppComponent implements OnInit {
   }
 
   stripHtml(html){
-    let temporalDivElement = document.createElement("div");
+    let  tmp = document.implementation.createHTMLDocument("New").body;
 
-    temporalDivElement.innerHTML = html;
-    return temporalDivElement.innerText || temporalDivElement.textContent || "";
+    tmp.innerHTML = html;
+    return tmp.textContent || tmp.innerText || "";
 }
 
   backToSearch() {
