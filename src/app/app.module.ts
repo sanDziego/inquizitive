@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     HttpClientModule,
     NgxSpinnerModule
   ],
-  providers: [],
+  providers: [NgxSpinnerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
