@@ -10,7 +10,7 @@ export class QuestionsDataService {
   constructor(private http: HttpClient) { }
 
   getCollectionId(short_id: string) {
-    return this.http.get('https://ncia.wwnorton.com/product_config/gateways3.json?_=1584186980631').pipe(
+    return this.http.get('https://ncia.wwnorton.com/product_config/gateways3.json?_=1584212444517').pipe(
       map( (result: any) => {
         let chapter =  result.toc.filter( item => item.short_id === short_id)[0];
 

@@ -4,6 +4,7 @@ import { QuestionsDataService } from './services/questions-data.service';
 import { tap, finalize, catchError } from 'rxjs/operators'
 import { trigger, transition, style, animate } from '@angular/animations'
 import { of } from 'rxjs';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-root',
@@ -27,7 +28,10 @@ export class AppComponent implements OnInit {
   errorOccured = false;
   title = '';
 
-  constructor(private fb: FormBuilder, private questionsDataService: QuestionsDataService) { }
+  constructor(
+    private fb: FormBuilder,
+    private questionsDataService: QuestionsDataService,
+    private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
     this.initForm();
@@ -42,6 +46,7 @@ export class AppComponent implements OnInit {
   getCollectionId() {
     let id = '';
     this.submitted = true;
+    this.spinner.show();
 
     this.questionsDataService.getCollectionId(`${this.short_id.value}`).pipe(
       tap( result => id = result),
@@ -63,7 +68,10 @@ export class AppComponent implements OnInit {
         this.parseQuestionTexts(result.questions);
         this.title = result.activity.title;
       }),
-      finalize(() => this.searchComplete = true)
+      finalize(() => {
+        this.spinner.hide();
+        this.searchComplete = true
+      })
     ).subscribe();
   }
 
@@ -141,7 +149,11 @@ export class AppComponent implements OnInit {
 
   parseText(text: string) {
     if (text.includes('alt="')) {
-      text = text.substring(text.indexOf('alt="') + 5, text.lastIndexOf('"'));
+      if(text.substring(text.indexOf('alt="') + 5, text.lastIndexOf('"'))) {
+        text = text.substring(text.indexOf('alt="') + 5, text.lastIndexOf('"'));
+      } else {
+        text = this.stripHtml(text);
+      }
     } else if (text.includes('>') && text.includes('<')) {
       text = this.stripHtml(text);
     }
@@ -152,7 +164,7 @@ export class AppComponent implements OnInit {
     let temporalDivElement = document.createElement("div");
 
     temporalDivElement.innerHTML = html;
-    return temporalDivElement.textContent || temporalDivElement.innerText || "";
+    return temporalDivElement.innerText || temporalDivElement.textContent || "";
 }
 
   backToSearch() {

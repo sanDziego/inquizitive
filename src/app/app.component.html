@@ -22,13 +22,15 @@
         <div [@slideIn] class="qa">
           <span class="question">Q{{i+1}}: {{question.question_text}}</span>
           <span class="answer">
-            Answer:
+            Correct Answer(s):
             <ng-container *ngIf="!question.correct_answer.filter; else answerArray">
              <b>{{question.correct_answer}};</b>
             </ng-container>
             <ng-template #answerArray>
               <ng-container *ngFor="let answer of question.correct_answer; let i = index">
-              <b>{{answer ? answer + '; ' : ''}}</b>
+                <ng-container *ngIf="answer">
+                  <b>{{answer}};</b>&nbsp;
+                </ng-container>
               </ng-container>
             </ng-template>
           </span>
@@ -40,3 +42,4 @@
     </div>
   </div>
 </div>
+<ngx-spinner></ngx-spinner>
