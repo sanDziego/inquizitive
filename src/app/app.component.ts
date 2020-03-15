@@ -68,9 +68,13 @@ export class AppComponent implements OnInit {
         this.parseQuestionTexts(result.questions);
         this.title = result.activity.title;
       }),
+      catchError(err => {
+        this.errorOccured = true;
+        return of(err);
+      }),
       finalize(() => {
         this.spinner.hide();
-        this.searchComplete = true
+        this.searchComplete = true;
       })
     ).subscribe();
   }
@@ -171,6 +175,8 @@ export class AppComponent implements OnInit {
     this.submitted = false;
     this.errorOccured = false;
     this.searchComplete = false;
+    this.questions = [];
+    this.title = '';
   }
 
   get short_id() {
