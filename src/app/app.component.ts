@@ -68,10 +68,6 @@ export class AppComponent implements OnInit {
         this.parseQuestionTexts(result.questions);
         this.title = result.activity.title;
       }),
-      catchError(err => {
-        this.errorOccured = true;
-        return of(err);
-      }),
       finalize(() => {
         this.spinner.hide();
         this.searchComplete = true;
@@ -91,13 +87,14 @@ export class AppComponent implements OnInit {
   }
 
   getCorrectAnswersBasedOnTypes(questions: any[]) {
-    // DONE --- MULTISELECT | MULTICHOICE | TRUEFALSE | SHORTANSWER | DRAGBLANKS | NUMERIC | ORDERING | MATCHING
+    // DONE --- MULTISELECT | MULTICHOICE | TRUEFALSE | SHORTANSWER | DRAGBLANKS | NUMERIC | ORDERING | MATCHING | IMAGECLICK | DRAGDROP
 
-    // TODO --- DRAGDROP | IMAGECLICK
+    // TODO ---
 
     questions.forEach( question => {
       switch(question.type) {
         case 'multiselect':
+        case 'imageclick':
           for( let i = 0; i < question.correct_answer.length; i++) {
             let answerAsText: string = question.choices[question.correct_answer.indexOf(question.correct_answer[i])].text;
 
@@ -142,9 +139,20 @@ export class AppComponent implements OnInit {
             question.correct_answer[i] = `${i + 1}:` + ' ' + this.parseText(question.correct_answer[i]) + ' ';
           }
           break;
-        case '':
-          break;
-        case '':
+        case 'dragdrop':
+          for( let i = 0; i < question.correct_answer.length; i++) {
+            if (typeof question.correct_answer[i] === 'object') {
+              for (let j = 0; j < question.correct_answer[i].length; j++) {
+                question.correct_answer[i][j] =
+                  this.parseText(question.labels[i]) + ' >>>> ' + this.parseText(question.targets[parseInt(question.correct_answer[i][j])].key) + ' ';
+              }
+            } else if (parseInt(question.correct_answer[i]) || parseInt(question.correct_answer[i]) === 0) {
+              question.correct_answer[i] =
+                this.parseText(question.labels[i]) + ' >>>> ' + this.parseText(question.targets[parseInt(question.correct_answer[i])].key) + ' ';
+            } else {
+              question.correct_answer[i] = this.parseText(question.labels[i]) + ' >>>> NONE ';
+            }
+          }
           break;
       }
     })

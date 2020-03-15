@@ -7,9 +7,9 @@
       <div class="search-section">
         <form [formGroup]="form" *ngIf="!submitted" [@slideIn]>
           <input id="search-input" type="text" formControlName="short_id" placeholder="Chapter ID">
-          <button class="btn" type="submit" (click)="getCollectionId()">Search</button>
+          <button class="btn" (click)="getCollectionId()">Search</button>
         </form>
-        <button [@slideIn] class="btn" *ngIf="searchComplete" (click)="backToSearch()">Back</button>
+        <button [@slideIn] type="button" class="btn" *ngIf="searchComplete" (click)="backToSearch()">Back</button>
       </div>
   </header>
   <div class="content">
@@ -52,7 +52,7 @@
       </ng-container>
     </ng-container>
     <div class="instructions" [@slideIn] *ngIf="errorOccured">
-      <span class="error">Incorrect Chapter ID!</span>
+      <span class="error">Error Occured! Check Your Chapter ID</span>
     </div>
   </div>
 </div>
